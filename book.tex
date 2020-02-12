@@ -1,0 +1,100 @@
+%!TEX program = XeLaTeX
+%!TEX encoding = UTF-8 Unicode
+
+%%%%%%%%%%%%%%%%%%%% book.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for the chapters of your "monograph"
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[graybox,envcountchap,sectrefs]{svmono}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+%
+\usepackage{type1cm}
+
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage[numbers]{natbib}
+
+% support Chinese
+%\usepackage{CTex}
+%\usepackage{ctex}
+\usepackage[UTF8]{ctex}
+
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage{enumerate}
+%\usepackage{epstopdf}
+%\usepackage{titlesec}
+\usepackage{mathrsfs}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{epsfig,tabularx,amssymb,amsmath,subfigure,multirow,graphicx}
+%\usepackage{fontspec}
+\usepackage{diagbox}
+\usepackage{longtable}
+
+\usepackage{hyperref}
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%\author{CSLT}
+\title{自然语言处理与生物识别}
+\subtitle{Natural Language Processing for Biometric Identification}
+\maketitle
+
+
+\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\include{dedic}
+%\include{foreword}
+%\include{preface}
+%\include{acknow}
+
+\tableofcontents
+
+%\include{acronym}
+
+\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{chapters/lm}
+
+\bibliographystyle{gbt7714-2005}
+\bibliography{chapters/reference}
+
+\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{glossary}
+%\include{solutions}
+\printindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+
+
+
+
