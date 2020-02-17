@@ -1,0 +1,38 @@
+%%%%%%%%%%%%%%%%%%%%% chapter.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample chapter
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\motto{Use the template \emph{chapter.tex} to style the various elements of your chapter content.}
+\chapter{反欺诈：声纹与人脸识别的抗攻击}
+\label{basic} % Always give a unique label
+% use \chaptermark{}
+% to alter or adjust the chapter heading in the running head
+
+
+这是里关于主题模型和语言模型的介绍。
+
+\section{声纹识别中的抗攻击}
+
+声纹识别中的抗攻击
+
+\section{人脸识别中的抗攻击}
+
+人脸活体检测（ Face Anti-Spoofing）技术是人脸识别系统中，用以确认待认证对象是否为真实生物活体的一项技术。一方面，人脸识别技术的商业化愈加成熟和广泛，极大改善和推进了社会金融活动的智能化和便捷性；另一方面，由于人脸照片、视频数据相对容易获取和复制，若无活体检测这一环节，那么使用被盗取的合法用户的照片、视频或者3D面及头套等即可入侵人脸识别系统，由此将带来极大危害\cite{chingovska2012effectiveness}。在目前的人脸识别系统中，常见的活体检测技术包括动作活体、3D活体、红外活体、光线活体等。下面将逐一简单介绍。
+
+动作活体是通过利用人脸关键点和人脸跟踪等技术，检测用户眨眼、张嘴、摇头等多种动作及其组合，可有效抵御照片、换脸、面具、遮挡以及屏幕翻拍等常见的攻击手段，但较难抵御视频回放攻击。
+
+3D活体通过专用硬件（例如3D结构光、ToF等）获取人脸部3D结构信息，可以有效防御如手机、电脑等屏幕显示和打印照片等2D攻击手段，但是需要配合其他方法抵御近几年出现的高质量3D面具攻击\cite{zhang2019dataset}。
+
+红外活体检测一般利用人体皮肤对近红外光的反射率较高，相比于其他材质有明显区别的特性，通过专用红外设备获取人脸部红外图像判断是否为活体。实际应用中通常使用主动红外摄像，即通过红外LED照射人脸，利用红外摄像头获取人脸部图像，分类判断是否为活体。红外活体检测技术对于常见攻击手段具有较好的防御效果，缺点在于需要特定红外设备\cite{zhang2019dataset,yi2014face}。
+
+光线活体是近两年出现的一种活体检测技术。由于3D活体、红外活体需要特殊设备，在已有系统中部署较为困难。光线活体技术利用屏幕发出不同颜色和强度的光线照射在人脸上，由于人脸自身的三维结构以及皮肤等生理组织对于不同颜色光线的反射率不同，从获取的视频中提取相应的活体信息，如图\ref{fig:light_reflection}所示。这项技术由于无需特殊硬件设备、且具有较高的准确率，在手机等移动端使用较为方便。其缺点在于要求视频拍摄过程稳定，闪光带来的用户体验需要得到提升，同时户外强光也会带来较大干扰\cite{liu2019aurora}。
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.5]{img/chapter_as/light_reflection.jpg}
+\caption{光线活体}
+\label{fig:light_reflection}
+\end{figure}
