@@ -34,14 +34,14 @@ P(w_1, w_2, \cdots, w_n)=P(w_1)P(w_2|w_1)\cdots P(w_n|w_1,\cdots,w_{n-1})
 P(w_i|w_1,\cdots,w_{i-1}) = \frac{C(w_1,\cdots, w_{i-1}, w_i) }{C(w_1,\cdots,w_{i-1})}
 \end{aligned}
 \end{equation}
-其中，$C(\cdot)$表示该序列在训练语料中出现的次数。但是，当序列长度很长时候，计算$P(w_i|w_1,\cdots,w_{i-1})$比较困难，因此大家引入了马尔可夫假设(Markov Assumption)，即假设当前词出现的概率只依赖于前$n-1$个词，也就是:
+其中，$C(\cdot)$表示该序列在训练语料中出现的次数。但是，当序列长度很长时候，计算$P(w_i|w_1,\cdots,w_{i-1})$比较困难，一种常见的处理方式是引入马尔可夫假设(Markov Assumption)，即假设当前词出现的概率只依赖于前$n-1$个词，也就是:
 \begin{equation} \nonumber
 \label{equ:ab}
 \begin{aligned}
 P(w_i|w_1,\cdots,w_{i-1}) = P(w_i|w_{i-n+1},\cdots,w_{i-1})
 \end{aligned}
 \end{equation}
-根据$n$取值的不同，我们可以得到以下模型：
+根据$n$取值的不同，我们可以得到不同的n-gram语言模型：
 \begin{itemize}
     \item Unigram: $P(w_1, \cdots, w_{i-n})=\prod_{i=1}^{n} P(w_i)$
 	\item Bigram: $P(w_1, \cdots, w_{i-n})=\prod_{i=1}^{n} P(w_i|w_{i-1})$
