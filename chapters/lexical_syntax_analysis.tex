@@ -37,7 +37,7 @@
 \item 歧义消解：由于候选子序列之间存在歧义，所以基于词典匹配之上，需要加入一些启发式规则以解决歧义问题。常用规则主要包含最大前向匹配（Forward Maximum Matching，FMM）、最大后向匹配（Backward Maximum Matching，BMM）、最少切分、双向最大匹配、长片段优先等策略\cite{wong1996chinese}\cite{weichun2013research}。
 \end{enumerate}
 
-中文分词如图\ref{fig:word_segmentation_example}所示。输入序列进行词典匹配之后，得到对应的DAG图，图中每条边都是词典词条，边的权重都为1，图中每一种首尾贯通的连接都是一种歧义切分的候选结果。比如由此只要求解DAG图的最优路径，则可以得到输入序列对应的分词结果。
+中文分词如图\ref{fig:word_segmentation_example}所示。输入序列进行词典匹配之后，得到对应的DAG图，图中每条边都是词典词条，边的权重都为1，图中每一种首尾贯通的路径都是一种候选的歧义切分结果。只要求解DAG图的最优路径，则可以得到输入序列对应的分词结果。
 
 \begin{figure}[h!]
 \centering
@@ -205,4 +205,5 @@
 \caption{基于交互的匹配}
 \label{fig:interaction_based_matching}
 \end{figure}
+
 
