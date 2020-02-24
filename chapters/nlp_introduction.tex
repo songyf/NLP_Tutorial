@@ -48,33 +48,9 @@ NLP发展历史可以总结为5个时期：
 
 \item 经验主义复苏时期：时间从20世纪50年代末到90年代初期。虽然这期间，例行理性主义占据主流，但是有学者已经开始思考引入基于语料库的统计方法到NLP研究中；这其中的代表是1967年诞生的联机语料库Brown Corpus\cite{kuvcera1967computational}。另外，和NLP紧密相关的机器学习方法得到了较大的发展；比如这段时期，诞生了贝叶斯模型、最大熵\cite{jaynes1957information}、维特比算法\cite{viterbi1967error}、隐马尔可夫模型\cite{stratonovich1965conditional}等等，NLP研究有了更多理论工具可供使用。
 
-\item 经验主义爆发时期：时间20世纪90年代中期~2010年左右。时间处于20世纪90年代前期，此刻经验主义已经处于全面复苏的前夜。一方面，由于机器学习领域诞生了很多新理论和方法，推动了NLP快速发展；另一方面，计算机的存储容量、计算能力已经极大提升，使得很多计算量偏大的机器学习方法逐渐实用。受益于这两方面，经验主义终于开始全面复苏，迎来了一个前所未有的黄金时期。20世纪90年代以后，以语料库和统计学习为基础，基于机器学习的词法分析、句法分析、机器翻译、语音识别等研究不断涌现。Ruder\cite{ruder2018review}在文章中总结了此时期，一些影响力较大里程碑，按照时间线索列举如下：
+\item 经验主义爆发时期：时间20世纪90年代中期~2010年左右。时间处于20世纪90年代前期，此刻经验主义已经处于全面复苏的前夜。一方面，由于机器学习领域诞生了很多新理论和方法，推动了NLP快速发展；另一方面，计算机的存储容量、计算能力已经极大提升，使得很多计算量偏大的机器学习方法逐渐实用。受益于这两方面，经验主义终于开始全面复苏，迎来了一个前所未有的黄金时期。20世纪90年代以后，以语料库和统计学习为基础，基于机器学习的词法分析、句法分析、机器翻译、语音识别等研究不断涌现。
 
-\begin{itemize}
-    \item 1993年，IBM提出了基于语料库的统计机器翻译模型\cite{brown1993mathematics}，吹响了经验主义的全面复苏的号角。
-    \item 1994年，隐马尔科夫模型在语音识别\cite{lee1989speaker}\cite{deng1994speech}中成功运用，标志了经验主义全面复苏。
-    \item 1998年，Berkeley大学主导了FrameNet项目\cite{baker1998berkeley}，提出了框架语义学并开放了语料库。这个项目，大大提升了语义角色标注的效果，并在后续促进了，组块分析、依存分析等其他NLP任务的发展。
-    \item 2001年，Lafferty发表了条件随机场（Conditional Random Fields，CRF）\cite{lafferty2001conditional}模型。从此，CRF成为序列标注任务的标志性模型，被广泛用于自动分词、词性标注、专名识别等NLP任务中。
-    \item 2002年，IBM提出了BLEU\cite{papineni2002bleu}，给出了双语互译质量度量的自动评估标准，结束了翻译效果人工评估繁重主观的难题，为后续机器翻译快速发展奠定基础。同年，结构化感知机\cite{collins2002discriminative}的出现，丰富了序列标注方法，很快也被广泛应用序列标注任务中。另外，情感分析\cite{pang2002thumbs}也开始成为NLP研究热点之一。
-    \item 2003年，诞生了用于主题建模的标准模型LDA\cite{blei2003latent}（Latent Dirichlet Allocation），它被应用于主题建模、文本分类、相似度计算等方面。
-    \item 2004年，Taskar等人提出最大边缘模型\cite{taskar2004max}，相比于SVM，它更适合获取结构化数据中的相关性，应用于句法解析任务中。
-    \item 2006年，Hovy等人发布大型多语言语料库OntoNotes\cite{hovy2006ontonotes}，它已被用于训练、评估多个NLP任务，如专名识别、依存分析等。
-    \item 2008年，Milne等人介绍了利用维基百科计算语义相关性\cite{witten2008effective}的方法。维基百科，到目前为止，依旧是NLP语料库最重要成员之一，被广泛用于语言模型、实体链指、知识图谱等各种NLP任务。
-    \item 2009年，Go等人提出了远程监督（Distant Supervision）\cite{go2009twitter}的思想，利用维基百科丰富了情感分类标注数据，获得任务效果的较大提升。此后，远程监督思想被更多学者，扩充到关系抽取、信息抽取、情感分类、文本分类等NLP任务中。它们大多通过利用现有大型知识库、语料库（比如维基百科），通过启发式方法，从中抽取大量带有噪声的数据，用于弥补标注数据的不足。
-\end{itemize}
-
-\item 经验主义现代时期：时间从2003年左右至今。这段时期，经验主义再上高峰，具有更加鲜明的特色，神经网络、深度学习的是目前NLP研究的关键词。Ruder在博文\cite{ruder2018review}在中总结了这段时期里NLP的研究趋势，归结为8个方面，列举如下：
-
-\begin{itemize}
-    \item 神经语言模型（Nerual Language Model，NLM）：语言模型是NLP中基础工具，它处理的是给定上文，建模下一个词出现的概率。2003年，Bengio等人提出基于神经网络的语言模型\cite{bengio2003neural}，用于替代传统基于计数和平滑的ngram语言模型。此后，NLM被众多研究者进行了扩展，出现了基于标准循环神经网络（RNN）、\cite{mikolov2010recurrent}、长短时记忆网络（LSTM）\cite{graves2013generating}等变种。
-    \item 多任务学习（Multi-task Learning）：多任务学习通过共享模型参数，使得多个任务可以协同学习、共同提升。2008年，Collobert等首次将多任务学习\cite{collobert2008unified}应用于NLP。到现在，多任务学习在NLP任务中广泛体现，并且很多学者还在不断发展和扩充此思想。
-    \item 词嵌入（Word Embedding）：在NLP和信息检索领域，人们为了表示一个句子的含义，常常忽略句子的文法和语序，仅考虑频次，采用One-Hot编码，简化成词袋（Bag Of Words）模型进行表达。One-Hot编码有两个缺陷：1. 编码向量高维稀疏；2.不方便计算词之间的相似度。2013年，Mikolov等人提出了词嵌入模型word2vec\cite{mikolov2013efficient}，改用低维稠密向量对词语进行编码，获取的词向量蕴含了语言中的近义、同位、上下位等性质。由于词向量蕴含的语义相似度特性，它已成为NLP在深度学习时代的标配，在后续的研究中发挥了重要作用。
-    \item NLP神经网络（Neural Networks For NLP）：2013年，神经网络开始应用于NLP任务。2013年，Graves等将循环神经网络\cite{graves2013hybrid}应用于语音识别；2013年，Socher等使用递归神经网络\cite{socher2013recursive}，改进了传统的句法分析；2014年，Kalchbrenner\cite{kalchbrenner2014convolutional}等人和Kim\cite{kim2014convolutional}等人，将卷积神经网络用于句子建模和文本分类。至此，神经网络3大结构，都成功应用于NLP中。
-    \item Seq2Seq（Sequence To Sequence Model）模型：它是将一个序列映射到另一个序列的通用框架，包含编码器和解码器两部分。编码器将输入句子，压缩为一个固定大小的向量；解码器根据前一步输出和当前状态预测当前位置的输出。2014年，Sutskever等人首次提出了Seq2Seq\cite{sutskever2014sequence}模型框架，将其成功应用于机器翻译任务。它标记着机器翻译，从此进入神经网络机器翻译（Nerual Machine Translation，NMT）时代。后续，很多研究扩展了Seq2Seq的应用范围，产生了比如图像标题生成，文本生成等有趣的应用。
-    \item 注意力（Attention）机制：2014年，它由Bahdanau\cite{bahdanau2014neural}等人首次提出。注意力机制，是NMT又一大突破，是NMT能够超过统计机器翻译的关键；它和Seq2Seq一起，将NMT推广到大规模工业应用。通过注意力机制，解码器可以回看编码器的序列状态，极大优化了机器翻译的对齐效果，使得NMT跨进工业应用门槛。后续很多学者，提出了注意力机制的多种实现。注意力机制除了直接激发Transformer\cite{vaswani2017attention}发明，也被广泛应用句法分析\cite{vinyals2015grammar}、阅读理解\cite{hermann2015teaching}等任务。
-    \item 基于记忆的网络（Memory-based Networks）：由于RNN隐状态、注意力机制等提供的记忆能力不足，无法存储长期、大量的信息。所以，2015年前后，很多学者提出了基于记忆的网络来改进这一问题。其中的代表有，神经图灵机\cite{graves2014neural}、记忆网络\cite{weston2014memory}、端到端记忆网络\cite{sukhbaatar2015end}、动态记忆网络\cite{kumar2016ask}、神经微分计算机\cite{graves2016hybrid}）和循环实体网络\cite{henaff2016tracking}。记忆网络技术，广泛适用于机器机器阅读理解、基于知识库的问答、多轮对话系统等方面。
-    \item 预训练语言模型（Pretrained Language Models）：2018年是预训练语言模型元年，因为从此以后NLP众多任务的研究范式都被改变。2018年，诞生了ELMO\cite{peters2018deep}、GPT\cite{radford2018improving}、BERT\cite{devlin2018bert}这3个杰出代表。它们通过将语言模型嵌入作为特征，使用目标任务数对语言模型对进行微调，使得众多NLP任务都获得了大幅度提升。由于预训练语言模型，只需要无标记的数据便可以进行学习，因此对于标记数据稀缺的低资源场景，预训练语言模型尤其有用。
-\end{itemize}
+\item 经验主义现代时期：时间从2003年左右至今。这段时期，经验主义再上高峰，具有更加鲜明的特色，神经网络、深度学习的是目前NLP研究的关键词。Ruder在博文\cite{ruder2018review}在中总结了这段时期里NLP的研究趋势，其中以神经语言模型（Nerual Language Model，NLM）、多任务学习（Multi-task Learning）、词嵌入（Word Embedding）、Seq2Seq（Sequence To Sequence Model）模型、注意力（Attention）机制、基于记忆的网络（Memory-based Networks）、预训练语言模型（Pretrained Language Models）等这个时期重要的里程碑。
 
 \end{enumerate}
 
@@ -89,4 +65,5 @@ NLP发展历史可以总结为5个时期：
 \item 信息检索：用户输入一个表述需求信息的查询字段，系统回复一个包含所需要信息的文档列表。其核心技术在于索引构建和相关性计算。
 \item 问答系统：接受用户自然语言形式描述的问题，从大量异构数据中查找或者推断用户问题答案的信息检索系统。
 \end{itemize}
+
 

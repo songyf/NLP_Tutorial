@@ -60,7 +60,7 @@
 
 \begin{enumerate}
 \item 转换为序列标注任务：词法分析3个子任务，都通过定义标注空间标签集，将具体任务转换为标准序列标注任务。以中文分词为例：转换方法为，标注每个字在其所属词中的位置。因为对于任何一个字来说，它可以是一个词的开始（Begin）, 一个词的中间（Inside）, 一个词的结尾（End），或者本身就是一个单字的词（Singleton），这也就是在分词序列标注中常用的BIES的分类。只需将输入序列的每个字标上BIES标签中的一个，就可以转换得到对应的分词结果。这种标注空间（模型状态空间）的划分在词性标注和专名识别任务上也很常用，也会有一些类似的变种，比如专名识别中常用BIO标签集。
-\item 求解序列标注任务：传统序列标注模型主要包括隐马尔科夫模型（Hidden Markov Model）\cite{zhang2003chinese}\cite{kupiec1992robust}\cite{yu2006chinese}\cite{morwal2012named}、最大熵马尔科夫模型（Maximum Entropy Markov Model）\cite{mccallum2000maximum}\cite{ratnaparkhi1996maximum}\cite{borthwick1999maximum}、条件随机场（Conditional Random Field）\cite{zhao2006improved}\cite{constant2011mwu}\cite{ekbal2008named}、结构化感知机（Structural Perception Machine）\cite{zhang2007chinese}\cite{zhang2008joint}等浅层模型。这些浅层模型的区别主要在于如何对待输入字序列和标签序列之间的概率，训练目标是最大联合概率似然、最大条件概率似然，还是最小化风险等。
+\item 求解序列标注任务：传统序列标注模型主要包括隐马尔科夫模型（Hidden Markov Model，HMM）\cite{zhang2003chinese}\cite{kupiec1992robust}\cite{yu2006chinese}\cite{morwal2012named}、最大熵马尔科夫模型（Maximum Entropy Markov Model，MEMM）\cite{mccallum2000maximum}\cite{ratnaparkhi1996maximum}\cite{borthwick1999maximum}、条件随机场（Conditional Random Field，CRF）\cite{zhao2006improved}\cite{constant2011mwu}\cite{ekbal2008named}、结构化感知机（Structural Perception Machine）\cite{zhang2007chinese}\cite{zhang2008joint}等浅层模型。这些浅层模型的区别主要在于如何对待输入字序列和标签序列之间的概率，训练目标是最大联合概率似然、最大条件概率似然，还是最小化风险等。
 \end{enumerate}
 
 总结来说：传统序列标注模型中，CRF是集大成者。相比于HMM，CRF去除了输出独立性要求，对于整个序列内部的信息和外部观测信息都可以有效利用，可以更加有效建模上下文。相比于MEMM，CRF通过全局归一化（global normalization），避免了MEMM locally normalized导致的label bias缺陷。
