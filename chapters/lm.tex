@@ -78,9 +78,6 @@ P(w_i|w_1,\cdots,w_{i-1}) = P(w_i|w_{i-n+1},\cdots,w_{i-1})
 主题模型 (Topic Models) 是近些年来非常重要的一项技术，它被广泛应用于工业和学术界。在主题模型中，我们一般用$d$来表示要分析的文档，例如一篇文章或者一个网页等，而一个文档$d$通常由一系列词$(w_1, w_2, ..., w_n)$组成, 其中$w_n$ 是文档中的第$n$个词。多份文档共同构成了我们要分析的语料集，我们用$\mathcal{D}$来表示，$\mathcal{D}=(d_1, d_2, ..., d_m)$组成，其中$d_m$ 是语料库中的第$m$个文档。主题一般用$z$来表示，它由一些词组成，同时也有该词在这个主题下的概率。
 主题模型泛指由一类可以从语料库中抽取主题并利用这些主题表示文档的模型，常见的主题模型有PLSA，LDA，以及各种LDA的变种，例如SentenceLDA等。在熟悉了这些基本概念之后，我们通过一种常见的主题模型Latent Diriclet Allocation (LDA)来认识主题模型。
 
-
-
-
 \subsection{常见的主题模型：LDA}
 
 2003年Blei等人在《Latent Dirichlet Allocation》~\cite{blei2003latent} 一文中提出了LDA模型。
@@ -95,6 +92,8 @@ LDA将文档的主题分布$P(z|d)$看做随机变量$\theta$，并且假设$\th
 		\label{pic:lda}
 	\end{center}
 \end{figure}
+
+读者可以使用常见的开源主题模型工具如LightLDA\cite{yuan2015lightlda}、Familia\cite{jiang2018familia}来尝试训练LDA模型。近年来，出现了各种对主题模型的扩展工作，例如联邦学习场景下的主题模型\cite{jiang2019federated}工作等。
 
 \subsection{主题模型在语音识别中的应用: 语言模型适配}
 
