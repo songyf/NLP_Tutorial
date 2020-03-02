@@ -159,28 +159,32 @@
 
 
 \section{语义分析}
-在自然语言处理领域，语义分析涉及在某种程度上理解单词、短语、句子或文档的意义。传统狭义语义分析主要包括语义消歧（word sense disambiguation）\cite{ yarowsky1995unsupervised}和语义角色标注（semantic role labeling）\cite{ carreras2005introduction, bjorkelund2009multilingual}。语义消歧指在给定文本上下文中确定多义词语的含义，例如，“他买了一台新苹果，用来修图更方便了”中，苹果一次指代苹果电脑，而非水果。语义角色标注是给词语和短语标注其在上下文文本中的含义的过程，典型标注标签包括主体、意图、结果等，如图\ref{fig:semantic_role_label}。语义角色标注是面向任务型对话系统中核心组件自然语言解析模块的基础技术之一。
+在自然语言处理领域，语义分析涉及在某种程度上理解单词、短语、句子或文档的意义。传统狭义语义分析主要包括语义消歧（word sense disambiguation）\cite{ yarowsky1995unsupervised}和语义角色标注（semantic role labeling）\cite{ carreras2005introduction, bjorkelund2009multilingual}。语义消歧指在给定文本上下文中确定多义词语的含义。
+%例如，“他买了一台新苹果，用来修图更方便了”中，苹果一次指代苹果电脑，而非水果。
+语义角色标注是给词语和短语标注其在上下文文本中的含义的过程，典型标注标签包括主体、意图、结果等。
+% 如图\ref{fig:semantic_role_label}。语义角色标注是面向任务型对话系统中核心组件自然语言解析模块的基础技术之一。
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=1]{img/chapter_nlp/guang_analysis_1.png}
-\caption{语义角色标注示例}
-\label{fig:semantic_role_label}
-\end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[scale=1]{img/chapter_nlp/guang_analysis_1.png}
+% \caption{语义角色标注示例}
+% \label{fig:semantic_role_label}
+% \end{figure}
 
 随着深度神经网络在自然语言处理领域的应用和研究，基于神经网络的语义分析得到了越来越多的应用和发展，并成为了驱动神经机器翻译\cite{ bahdanau2014neural, luong2015effective}、阅读理解\cite{ hermann2015teaching}、对话系统\cite{ serban2016building, chen2017survey}的最基础和核心的技术。基于神经网络的语义分析广义上可分为语义表示和语义匹配。其中语义表示任务将词语和短语镶嵌到高维向量空间中，称作词向量，作为CNN\cite{ lecun1995convolutional}、RNN\cite{ hochreiter1997long}和Transformer\cite{ vaswani2017attention}等模型的底层输入，根据任务需要，可以灵活的实现文本分类\cite{ joulin2016bag, zhang2015character}、机器翻译、阅读理解、对话系统、文本摘要\cite{ tan2017abstractive, yao2017recent}等自然语言处理任务，逐步替代或部分替代了传统以ngram one-hot向量作为底层表示的方法。语义匹配任务更多关注句子和篇章层级的语义的相似性，例如，寻找给定语料库中与查询语句语义层面最相似的句子。语义匹配任务在信息抽取、对话系统、问答系统都有广泛的应用。
 
 \subsection{语义表示}
-语义表示中词向量的概念可以追溯到Bengio的著作\cite{ bengio2003neural}。作者在文中提出了一种基于神经网络的语言模型，创新的提出将每一个词表示成一个高维的向量，而后使用神经网络计算给定上文词语后，下一个词出现的概率分布，最大化训练语料出现的概率。训练语料是单词序列$w_1, \cdots, w_t, w_t \in V$，其中$V$是全体单词的集合。语言模型的目标是找到一个模型$f(w_t, \cdots, w_{t-n+1}) = P(w_t|w_1 ^ {t-1})$，即在给定前$t-1$个词的情况下，对第$t$个词的概率分布建模。Bengio提出把词表示成实数向量，$C(i) \in \mathbb{R}^m$，即每一个词对应一个维度为$m$的实数向量，映射$C$可以用一个$|V| \times m$的实数矩阵表示。在第二步中，作者提出使用神经网络$g$来建模给定前缀序列下一个词的概率。模型结构如图~\ref{fig:neural_language_model}。
+语义表示中词向量的概念可以追溯到Bengio的著作\cite{ bengio2003neural}。作者在文中提出了一种基于神经网络的语言模型，创新的提出将每一个词表示成一个高维的向量，而后使用神经网络计算给定上文词语后，下一个词出现的概率分布，最大化训练语料出现的概率。
+%训练语料是单词序列$w_1, \cdots, w_t, w_t \in V$，其中$V$是全体单词的集合。语言模型的目标是找到一个模型$f(w_t, \cdots, w_{t-n+1}) = P(w_t|w_1 ^ {t-1})$，即在给定前$t-1$个词的情况下，对第$t$个词的概率分布建模。Bengio提出把词表示成实数向量，$C(i) \in \mathbb{R}^m$，即每一个词对应一个维度为$m$的实数向量，映射$C$可以用一个$|V| \times m$的实数矩阵表示。在第二步中，作者提出使用神经网络$g$来建模给定前缀序列下一个词的概率。模型结构如图~\ref{fig:neural_language_model}。
 其中，将词表示成高维实数向量的方法是词向量以及一系列神经网络在自然语言处理应用的开端。通常，我们会设计一个仅与文本结构或上下文相关的（无监督）任务作为目标，拟合训练数据，得到词向量表示。在Bengio之后，Word2Vec\cite{ mikolov2013distributed}, Glove\cite{ pennington2014glove}， ELMo\cite{ peters2018deep}等一系列词向量方法出现并逐渐成为自然语言处理的标准工具。
 语义表示不仅限于词的层面，广义的语义表示在现代基于神经网络的自然语言处理中应用广泛。例如，神经机器翻译通常采用编码器译码器（Encoder-Decoder）\cite{ sutskever2014sequence}结构，其中编码器的输出可以看做是翻译模型对输入文本的语义表示，译码器基于该表示，生成目标语言的文本。再如，闲聊型对话系统中，需要针对聊天的上文给出合适的回答。闲聊对话系统可以分为生成式对话系统（Generation-based）\cite{ shang2015neural}和选择式对话系统（Selection-based）\cite{ chen2017survey}。选择式对话系统依赖语义匹配方法。典型的生成式闲聊对话系统也采用编码器译码器结构，其中编码器的输出是对聊天上文的总结性表示，可以认为是广义上的聊天上文的语义表示，用于在译码器中生成合适的回答语句。此外，随着自然语言处理预训练模型的发展，Bert\cite{devlin2018bert}，GPT-2\cite{ radford2019language}，MASS\cite{ song2019mass}等预训练模型（Pretrained models）在阅读理解等任务上大放异彩。这些模型可以看做是多个联合任务共享底层语义表示的学习，通常使用与文本结构相关的目标作为训练目标，设计神经网络结构表示文本。在应用时，这些预训练获得的表示仅需在少量标注数据上进行优化，即可获得优秀的子任务模型。通常，编码器和预训练模型采用CNN、RNN、Transformer等结构处理文本序列，在CNN和RNN中通常还会使用注意力（Attention）机制，得到文本片段的语义表示。
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1]{img/chapter_nlp/guang_represent_1.png}
-\caption{一种使用词向量的神经语言模型结构}
-\label{fig:neural_language_model}
-\end{figure}
+%
+% \begin{figure}[h!]
+% \centering
+% \includegraphics[scale=1]{img/chapter_nlp/guang_represent_1.png}
+% \caption{一种使用词向量的神经语言模型结构}
+% \label{fig:neural_language_model}
+% \end{figure}
 
 \subsection{语义匹配}
 语义匹配任务在语义表示的基础上，对文本片段之间的相似度或相关度给出量化指标，语义越相似的片段匹配分数越高。语义匹配可大致分为基于表示的匹配（representation-based matching）\cite{ feng2015applying}和基于交互的匹配（interaction-based matching）\cite{ zhou2018multi, luspatio}。
