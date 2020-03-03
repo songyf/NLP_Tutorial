@@ -11,7 +11,7 @@
 \begin{itemize}
 \item 自动分词（Word Segmentation）：是将连续的自然语言文本，切分成具有语义合理性和完整性的词汇序列的过程。
 \item 词性标注（Part-of-Speech Tagging）：是指为自然语言文本中的每个词汇赋予一个词性的过程。
-\item 命名实体识别（Named Entity Recognition，也称专名识别）：是指识别自然语言文本中具有特定意义的实体，主要包括人名、地名、机构名、时间日期等。
+\item 命名实体识别（Named Entity Recognition，也称专名识别）：是指识别自然语言文本中具有特定意义的实体，主要包括人名、地名、机构名、时间等。
 \end{itemize}
 
 \begin{figure}[h!]
@@ -32,21 +32,12 @@
 基于词典匹配的实现步骤：
 
 \begin{enumerate}
-\item 词典构建：根据具体任务的语言学知识构建词典。如果是自动分词，则收录常见的词条短语；如果是词性标注、专名识别，则收录当前常见词条对应的名词、动词、介词、专名类型等属性，并且保留相应词性、专名属性的概率。词典构建，通常需要人工收集、整理、离线更新，维护成本较高。
-\item 词典匹配：扫描输入的所有子序列，如果当前子序列能够匹配词典中某个词条，则当前子序列属一个可能的候选。如果是分词，则当前子序列就可能为一个分词的词汇；如果是词性标注、专名识别，则当前子序列以相应的概率取词典中的词条属性。
-\item 歧义消解：由于候选子序列之间存在歧义，所以基于词典匹配之上，需要加入一些启发式规则以解决歧义问题。常用规则主要包含最大前向匹配（Forward Maximum Matching，FMM）、最大后向匹配（Backward Maximum Matching，BMM）、最少切分、双向最大匹配、长片段优先等策略\cite{wong1996chinese}\cite{weichun2013research}。
+\item 词典构建：根据具体任务的语言学知识构建词典。如果是自动分词，则收录常见词条；如果是词性标注、专名识别，则收录当前常见词条，并记录对应词性、专名属性的概率分布。
+\item 词典匹配：扫描输入序列，得到任务的DAG图表示。图中每条边都是词典词条，每种首尾贯通的路径都是一种候选结果。只要求解DAG图的最优路径，则可以得到输入序列的结果。
+\item 歧义消解：由于候选之间存在歧义，所以基于词典匹配之上，需要加入一些启发式规则以解决歧义问题。常用规则主要包含最大前向匹配（Forward Maximum Matching，FMM）、最大后向匹配（Backward Maximum Matching，BMM）、最少切分、双向最大匹配、长片段优先等策略\cite{wong1996chinese}\cite{weichun2013research}。
 \end{enumerate}
 
-中文分词如图\ref{fig:word_segmentation_example}所示。输入序列进行词典匹配之后，得到对应的DAG图，图中每条边都是词典词条，每种首尾贯通的路径都是一种候选的歧义切分结果。只要求解DAG图的最优路径，则可以得到输入序列对应的分词结果。
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{img/chapter_nlp/word_segmentation_example.jpg}
-\caption{中文分词示例}
-\label{fig:word_segmentation_example}
-\end{figure}
-
-很长一段时间内研究者都在对基于词典匹配方法进行优化，比如最大长度设定、字符串存储和查找方式以及对于词表的组织结构，比如采用TRIE索引树\cite{yang2012enhanced}、哈希索引\cite{li2003new}等、AC自动机\cite{ngword}等结构方便快速查找。
+很长一段时间内研究者都在对基于词典匹配方法进行优化，比如采用TRIE索引树\cite{yang2012enhanced}、哈希索引\cite{li2003new}等、AC自动机\cite{ngword}等结构方便快速查找。
 
 基于词典匹配的优缺点：
 \begin{itemize}
@@ -59,7 +50,7 @@
 基于机器学习的实现步骤：
 
 \begin{enumerate}
-\item 转换为序列标注问题：通过定义标注空间，将任务转换为序列标注问题。以分词为例：常用BIES标注每个字在词中的位置。B表示词的开始（Begin）, I表示词的中间（Inside）, E表示词的结尾（End），S表示单字词（Singleton）。这种标注空间的划分在词性标注和专名识别任务上也很常用，比如专名识别中常用BIO标签集。
+\item 转换为序列标注问题：通过定义标注空间，将任务转换为序列标注问题。以分词为例：常用BIES表示每个字在词中的位置。B表示词的开始（Begin）, I表示词的中间（Inside）, E表示词的结尾（End），S表示单字词（Singleton）。这种标注空间的划分在词性标注和专名识别任务上也很常用，比如专名识别中常用BIO标签集。
 \item 求解序列标注问题：传统序列标注模型主要包括隐马尔科夫模型（Hidden Markov Model，HMM）\cite{zhang2003chinese}\cite{kupiec1992robust}\cite{yu2006chinese}\cite{morwal2012named}、最大熵马尔科夫模型（Maximum Entropy Markov Model，MEMM）\cite{mccallum2000maximum}\cite{ratnaparkhi1996maximum}\cite{borthwick1999maximum}、条件随机场（Conditional Random Field，CRF）\cite{zhao2006improved}\cite{constant2011mwu}\cite{ekbal2008named}、结构化感知机（Structural Perception Machine）\cite{zhang2007chinese}\cite{zhang2008joint}等浅层模型。这些浅层模型的区别主要在于如何对待输入字序列和标签序列之间的概率，训练目标是最大联合概率似然、最大条件概率似然，还是最小化风险等。
 \end{enumerate}
 
@@ -85,15 +76,6 @@
 
 \subsubsection{深度学习}
 随着大数据、神经网络、深度学习的快速发展，很多研究提出利用前馈神经网络来解决词法分析\cite{collobert2011natural}\cite{zheng2013deep}任务。总的来说，与前面基于机器学习的方法类似，也是把词法分析任务作为序列标注问题进行求解，只是把人工设计特征函数，改成了使用多层前馈神经网络进行自动特征抽取。
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{img/chapter_nlp/dl_segmentation_example.png}
-\caption{深度学习分词示例}
-\label{fig:dl_segmentation_example}
-\end{figure}
-
-如图\ref{fig:dl_segmentation_example}所示，网络的第一层输入句子中每个字的字向量，第二层将一个固定长度的字向量进行拼接，然后输入到标准前馈神经网络结构中，神经网络输出在标注集合上的lattice，最后利用维特比算法进行解码，就可以得到最优标注序列。
 
 后续有很多研究，深度学习框架基础上，对前馈神经网络进行改进，进一步探索了卷积神经网络\cite{wu2019neural}、循环神经网络\cite{chen2015long}、递归神经网络\cite{chen2015gated}等复杂结构对词法分析任务的影响。
 
@@ -199,5 +181,6 @@
 \caption{基于交互的匹配}
 \label{fig:interaction_based_matching}
 \end{figure}
+
 
 
